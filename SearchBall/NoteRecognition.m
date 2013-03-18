@@ -168,8 +168,7 @@
         {
             (*count)++;
         }
-  
-        
+        //
     }
     return *count;
 }
