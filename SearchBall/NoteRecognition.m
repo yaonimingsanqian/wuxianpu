@@ -445,22 +445,11 @@
     }
     return noteSet;
 }
--(void)binarization:(uint32_t*)pOrgImageData :(int)imageWidth :(int)imageHeight
-{
-    for(int i = 0;i != imageHeight;i++)
-    {
-        for(int j = 0;j != imageWidth;j++)
-        {
-            if(pOrgImageData[i*imageWidth+j]!=0xffffffff)
-                pOrgImageData[i*imageWidth+j]=0;
-        }
-    }
-}
+
 -(NoteSet*)getAllNote :(uint32_t*)pOrgImageData :(int)imageWidth :(int)imageHeight
 {
     
     int tag = 0;
-    [self binarization:pOrgImageData :imageWidth :imageHeight];
     uint32_t* data = [self removeSpectrum:pOrgImageData :imageWidth :imageHeight];
     
     uint32_t *recordData = [self initRecordData:imageWidth :imageHeight];
