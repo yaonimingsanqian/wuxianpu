@@ -168,56 +168,33 @@
     int max = [self getMaxWidth:temp_i];
     return max;
 }
+-(void)binaryzation:(uint32_t*)pOrgImageData :(int)imageWidth :(int)imageHeight
+{
+    uint32_t temp;
+    for(int i = 0;i != imageHeight;i++)
+    {
+        for(int j = 0;j != imageWidth;j++)
+        {
+            temp = pOrgImageData[i*imageWidth+j];
+            if((int)temp-2147483648>0)
+                pOrgImageData[i*imageWidth+j]=0xffffffff;
+        }
+    } 
+}
 -(uint32_t*)mergePix:(uint32_t*)pOrgImageData
                :(int)imageWidth 
                :(int)imageHeight 
                :(int)destSquireWidth 
                :(int)destSquireHeight 
 {
-    /*NSMutableArray *arr = [[NSMutableArray alloc]init];
-    Position *p1 = [[Position alloc]init];
-    [p1 setPosX:1];
-    Position *p2 = [[Position alloc]init];
-    [p2 setPosX:2];
-    Position *p3 = [[Position alloc]init];
-    [p3 setPosX:3];
-    Position *p4 = [[Position alloc]init];
-    [p4 setPosX:7];
-    Position *p5 = [[Position alloc]init];
-    [p5 setPosX:8];
-    Position *p6 = [[Position alloc]init];
-    [p6 setPosX:9];
-    Position *p7 = [[Position alloc]init];
-    [p7 setPosX:10];
-    Position *p8 = [[Position alloc]init];
-    [p8 setPosX:11];
-    Position *p9 = [[Position alloc]init];
-    [p9 setPosX:12];
-    Position *p10 = [[Position alloc]init];
-    [p10 setPosX:15];
-    Position *p11 = [[Position alloc]init];
-    [p11 setPosX:16];
-    [arr addObject:p1];
-    [arr addObject:p2];
-    [arr addObject:p3];
-    [arr addObject:p4];
-    [arr addObject:p5];
-    [arr addObject:p6];
-    [arr addObject:p7];
-    [arr addObject:p8];
-    [arr addObject:p9];
-    [arr addObject:p10];
-    [arr addObject:p11];
-    int max = [self getMaxWidth:arr];*/
 
-
-    
     uint32_t *destImageData_ = [self createDestImageData:imageWidth :imageHeight :destSquireWidth :destSquireHeight];
     int count = 0;
     for(int i = 0;i < imageHeight;i += destSquireHeight)
     {
         [self checkAllKeyPointOnCurrentLine:pOrgImageData :destSquireWidth :destSquireHeight :imageHeight :imageWidth :destImageData_ :i :&count];
     }
+    [self binaryzation:destImageData_ :imageWidth/destSquireWidth+1 :imageHeight/destSquireHeight+1];
     return destImageData_;
 }
 @end
