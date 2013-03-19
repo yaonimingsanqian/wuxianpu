@@ -169,6 +169,7 @@
             (*count)++;
         }
     }
+    //
     return *count;
 }
 -(BOOL)currentLineisSpectrum:(uint32_t*)pOrgImageData :(int)imageWidth :(int)line :(int*)count
